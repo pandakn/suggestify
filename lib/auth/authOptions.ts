@@ -26,7 +26,6 @@ export const authOptions: NextAuthOptions = {
         return token;
       }
       const newToken = await refreshAccessToken(token);
-      console.log("newToken: ", newToken);
 
       return newToken;
     },
@@ -34,6 +33,7 @@ export const authOptions: NextAuthOptions = {
       session.accessToken = token.accessToken;
       session.error = token.error;
       session.user = token.user;
+      session.user.id = token.user.id;
       return session;
     },
   },

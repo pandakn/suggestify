@@ -7,29 +7,22 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-import SignOut from "./SignOut";
 
 const Header = () => {
   const { data: session } = useSession();
 
   return (
-    <div className="flex items-center gap-4 mb-5">
-      <h3 className="font-bold">
+    <div className="flex items-center gap-4 my-10">
+      <h1 className="text-3xl font-bold">
         <span className="text-green-600">Hey,</span>{" "}
         <span>{session?.user?.name}</span>
-      </h3>
+      </h1>
       <DropdownMenu>
         <DropdownMenuTrigger asChild className="hover:cursor-pointer">
-          <Avatar>
-            <AvatarImage
-              src={session?.user?.image || ""}
-              alt={session?.user?.name || "user profile"}
-            />
+          <Avatar className="w-16 h-16">
+            <AvatarImage src={session?.user?.image} alt={session?.user?.name} />
             <AvatarFallback>{session?.user?.name}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>

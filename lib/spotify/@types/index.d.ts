@@ -1,3 +1,9 @@
+export interface Image {
+  height: number;
+  url: string;
+  width: number;
+}
+
 export interface Artist {
   external_urls: {
     spotify: string;
@@ -18,11 +24,7 @@ interface Album {
   };
   href: string;
   id: string;
-  images: {
-    height: number;
-    url: string;
-    width: number;
-  }[];
+  images: Image[];
   name: string;
   release_date: string;
   release_date_precision: string;
@@ -66,13 +68,18 @@ export interface TopArtist {
   genres: string[];
   href: string;
   id: string;
-  images: {
-    height: number;
-    url: string;
-    width: number;
-  }[];
+  images: Image[];
   name: string;
   popularity: number;
   type: "artist";
   uri: string;
+}
+
+export interface Playlist {
+  id: string;
+  name: string;
+  external_urls: {
+    spotify: string;
+  };
+  images: Image[];
 }

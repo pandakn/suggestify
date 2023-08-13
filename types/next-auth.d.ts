@@ -5,10 +5,15 @@
 import { DefaultSession, Account as NextAuthAccount } from "next-auth";
 import { JWT as NextAuthJWT } from "next-auth/jwt";
 
+type Profile = {
+  id: string;
+};
+
 declare module "next-auth" {
   interface Session extends DefaultSession {
     accessToken?: string;
     error?: string;
+    user: Session["user"] & Profile;
   }
   interface Account extends NextAuthAccount {
     expires_at: number;
@@ -21,6 +26,6 @@ declare module "next-auth/jwt" {
     refreshToken?: string;
     accessTokenExpires?: number;
     error?: string;
-    user?: Session["user"];
+    user?: Session["user"] & Profile;
   }
 }
