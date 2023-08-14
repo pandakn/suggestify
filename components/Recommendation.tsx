@@ -1,5 +1,5 @@
 import React from "react";
-import { TopTrack } from "@/lib/spotify/@types";
+import { Track } from "@/types/spotify";
 
 import { getSeedTopItem } from "@/lib/spotify";
 import { getRecommendations } from "@/lib/spotify";
@@ -8,8 +8,9 @@ import { authOptions } from "@/lib/auth/authOptions";
 
 import CardTrack from "@/components/CardTrack";
 import ReGenerateButton from "./ReGenerateButton";
+import { revalidateTag } from "next/cache";
 
-const TopTracks = async () => {
+const Recommendations = async () => {
   const session = await getServerSession(authOptions);
 
   const seedTracks = await getSeedTopItem(
@@ -20,16 +21,22 @@ const TopTracks = async () => {
     session?.accessToken
   );
 
-  const recommend: TopTrack[] =
+  const recommend: Track[] =
     seedTracks &&
     (await getRecommendations(
       { seedTracks: seedTracks, limit: 12 },
       session?.accessToken
     ));
 
+  const generateNewSong = async () => {
+    "use server";
+
+    revalidateTag("recommendations");
+  };
+
   return (
     <>
-      <ReGenerateButton />
+      <ReGenerateButton generateNewSong={generateNewSong} />
       <div className="grid grid-cols-1 gap-6 mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {recommend.map((r) => {
           return (
@@ -49,4 +56,4 @@ const TopTracks = async () => {
   );
 };
 
-export default TopTracks;
+export default Recommendations;

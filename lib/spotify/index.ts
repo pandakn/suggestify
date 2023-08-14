@@ -1,7 +1,3 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/authOptions";
-import { revalidateTag } from "next/cache";
-
 export const BASE_URL = "https://api.spotify.com/v1";
 
 // types
@@ -15,12 +11,10 @@ type ParamsTopItem = {
 };
 
 const scopes = [
-  "user-read-email",
   "user-top-read",
   "playlist-modify-public",
   "playlist-modify-private",
   "playlist-read-private",
-  "playlist-read-collaborative",
 ].join(",");
 const params = {
   scope: scopes,
@@ -67,7 +61,10 @@ export const getRecommendations = async (
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-      cache: "no-cache",
+      // cache: "no-cache",
+      next: {
+        tags: ["recommendations"],
+      },
     }
   );
 

@@ -3,11 +3,17 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 
-const ReGenerateButton = () => {
+type ReGenerateButtonProps = {
+  generateNewSong: () => Promise<void>;
+};
+
+const ReGenerateButton = ({ generateNewSong }: ReGenerateButtonProps) => {
   return (
-    <Button className="rounded-xl" onClick={() => window.location.reload()}>
-      Generate New Song
-    </Button>
+    <form action={generateNewSong}>
+      <Button className="rounded-xl" formAction={generateNewSong}>
+        Generate New Song
+      </Button>
+    </form>
   );
 };
 

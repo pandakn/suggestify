@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 // types
-import { Artist, Image as ImageType } from "@/lib/spotify/@types";
+import { Artist, Image as ImageType } from "@/types/spotify";
 
 // icons
 import { PlayIcon, Pause } from "lucide-react";
@@ -59,7 +59,7 @@ const CardTrack = ({
   return (
     <Card className="relative max-w-lg rounded-lg dark:bg-gray-900">
       <CardHeader>
-        <AspectRatio>
+        <AspectRatio ratio={1 / 1}>
           <div className="relative group">
             <Image
               src={image.url}

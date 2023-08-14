@@ -3,7 +3,6 @@ import { authOptions } from "@/lib/auth/authOptions";
 
 // components
 import Recommendation from "@/components/Recommendation";
-import Header from "@/components/Header";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
@@ -15,7 +14,6 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <Header />
       <Recommendation />
     </main>
   );

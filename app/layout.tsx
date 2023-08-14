@@ -5,6 +5,7 @@ import { NextAuthProvider } from "@/context/AuthContext";
 import ToasterContext from "@/context/ToastContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="container mx-auto">
               <ToasterContext />
+              <Header />
               {children}
             </div>
             <Footer />

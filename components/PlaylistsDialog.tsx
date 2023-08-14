@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
-import { Playlist } from "@/lib/spotify/@types";
+import { Playlist } from "@/types/spotify";
 
 // components
 import {
@@ -13,10 +13,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 import { Heart } from "lucide-react";
 import { BASE_URL, addSongToPlaylist } from "@/lib/spotify";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import SearchInput from "./SearchInput";
 
 const fetcher = async ([url, token]: any) => {
   const res = await fetch(url, {
@@ -33,6 +41,7 @@ type PlaylistsDialogProps = {
 
 const PlaylistsDialog = ({ songUri }: PlaylistsDialogProps) => {
   const { data: session } = useSession();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const {
     data: playlists,
@@ -60,27 +69,51 @@ const PlaylistsDialog = ({ songUri }: PlaylistsDialogProps) => {
     toast.success(`Added to your ${name}`);
   };
 
+  const filteredPlaylists = playlists
+    ? playlists.filter((pl) =>
+        pl.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Heart className="absolute text-white hover:scale-125 hover:text-red-500 w-7 h-7 left-16 text-start hover:cursor-pointer" />
       </DialogTrigger>
-      <DialogContent className="max-w-[320px] h-96 overflow-y-auto sm:max-w-[520px]">
+      <DialogContent className="max-w-[340px] h-96 overflow-y-auto sm:max-w-xl">
         <DialogHeader>
-          <DialogTitle className="mb-4 text-2xl">Add to Playlists</DialogTitle>
+          <DialogTitle className="text-2xl ">Add to Playlists</DialogTitle>
+          {/* search playlists */}
+          <SearchInput
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+
           <DialogDescription className="space-y-2">
             {isLoading ? (
               <p>Loading....</p>
             ) : (
               <>
-                {playlists?.map((pl) => (
-                  <li
-                    key={pl.id}
-                    onClick={() => handleClickPlaylist(pl.id, pl.name)}
-                    className="text-lg hover:cursor-pointer hover:text-gray-900 dark:hover:text-white"
-                  >
-                    {pl.name}
-                  </li>
+                {filteredPlaylists?.map((pl) => (
+                  <>
+                    <TooltipProvider key={pl.id} delayDuration={400}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <li
+                            onClick={() => handleClickPlaylist(pl.id, pl.name)}
+                            className="text-lg md:text-xl hover:cursor-pointer hover:text-gray-900 dark:hover:text-white"
+                          >
+                            {pl.name}
+                          </li>
+                        </TooltipTrigger>
+                        <TooltipContent align="start">
+                          <p>
+                            Add to <b>{pl.name}</b>
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </>
                 ))}
               </>
             )}

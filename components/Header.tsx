@@ -1,7 +1,7 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
 import React from "react";
+import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -14,8 +14,12 @@ import { ModeToggle } from "./ModeToggle";
 const Header = () => {
   const { data: session } = useSession();
 
+  if (!session) {
+    return null;
+  }
+
   return (
-    <div className="flex items-center gap-4 my-10">
+    <div className="flex items-center justify-center gap-4 my-10">
       <h1 className="text-3xl font-bold">
         <span className="text-green-500">Hey,</span>{" "}
         <span>{session?.user?.name}</span>
