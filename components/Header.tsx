@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ModeToggle } from "./ModeToggle";
 
 const Header = () => {
   const { data: session } = useSession();
@@ -16,7 +17,7 @@ const Header = () => {
   return (
     <div className="flex items-center gap-4 my-10">
       <h1 className="text-3xl font-bold">
-        <span className="text-green-600">Hey,</span>{" "}
+        <span className="text-green-500">Hey,</span>{" "}
         <span>{session?.user?.name}</span>
       </h1>
       <DropdownMenu>
@@ -36,6 +37,7 @@ const Header = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <ModeToggle />
     </div>
   );
 };

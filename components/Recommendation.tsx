@@ -30,7 +30,7 @@ const TopTracks = async () => {
   return (
     <>
       <ReGenerateButton />
-      <div className="grid grid-cols-1 gap-6 my-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {recommend.map((r) => {
           return (
             <CardTrack

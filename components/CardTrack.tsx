@@ -3,7 +3,12 @@
 import React, { useState } from "react";
 
 // components
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -14,6 +19,7 @@ import { Artist, Image as ImageType } from "@/lib/spotify/@types";
 import { PlayIcon, Pause } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import PlaylistsDialog from "./PlaylistsDialog";
+import SpotifyLogo from "@/public/spotify-icon.svg";
 
 type CardTrackProps = {
   name: string;
@@ -33,7 +39,6 @@ const CardTrack = ({
   previewUrl,
 }: CardTrackProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [trackActiveId, setTrackActiveId] = useState("");
   const audioRef = React.createRef<HTMLAudioElement>();
 
   const togglePlay = () => {
@@ -52,7 +57,7 @@ const CardTrack = ({
   };
 
   return (
-    <Card>
+    <Card className="relative max-w-lg rounded-lg dark:bg-gray-900">
       <CardHeader>
         <AspectRatio>
           <div className="relative group">
@@ -69,7 +74,7 @@ const CardTrack = ({
               {previewUrl && (
                 <Button
                   size="icon"
-                  className="px-2 text-gray-900 bg-white rounded-full hover:text-white"
+                  className="px-2 text-gray-900 bg-white rounded-full hover:text-white dark:hover:text-gray-900 hover:scale-125"
                   onClick={togglePlay}
                 >
                   {isPlaying ? (
@@ -84,20 +89,30 @@ const CardTrack = ({
         </AspectRatio>
       </CardHeader>
 
-      <CardContent>
-        <h1 className="font-bold hover:underline">
+      <CardContent className="mb-4">
+        <h1 className="text-xl font-bold hover:underline">
           <a href={href} target="_blank">
             {name}
           </a>
         </h1>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap mt-1">
           {artists.map((a) => (
-            <p key={a.id} className="">
+            <p key={a.id} className="opacity-80">
               {a.name}
             </p>
           ))}
         </div>
       </CardContent>
+      <CardFooter>
+        <div className="absolute flex bottom-4 gap-x-2">
+          <Image
+            src={SpotifyLogo}
+            alt="spotify-logo"
+            className="bottom-0 w-6 h-6 text-white "
+          />
+          <h3 className="">Spotify</h3>
+        </div>
+      </CardFooter>
 
       {/* song */}
       <audio ref={audioRef} preload="auto">

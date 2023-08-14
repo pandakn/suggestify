@@ -63,7 +63,7 @@ const PlaylistsDialog = ({ songUri }: PlaylistsDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Heart className="absolute text-white hover:text-red-500 w-7 h-7 left-16 text-start hover:cursor-pointer " />
+        <Heart className="absolute text-white hover:scale-125 hover:text-red-500 w-7 h-7 left-16 text-start hover:cursor-pointer" />
       </DialogTrigger>
       <DialogContent className="max-w-[320px] h-96 overflow-y-auto sm:max-w-[520px]">
         <DialogHeader>
@@ -77,7 +77,7 @@ const PlaylistsDialog = ({ songUri }: PlaylistsDialogProps) => {
                   <li
                     key={pl.id}
                     onClick={() => handleClickPlaylist(pl.id, pl.name)}
-                    className="text-lg hover:cursor-pointer hover:text-gray-900"
+                    className="text-lg hover:cursor-pointer hover:text-gray-900 dark:hover:text-white"
                   >
                     {pl.name}
                   </li>

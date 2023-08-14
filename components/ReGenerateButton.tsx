@@ -5,7 +5,9 @@ import { Button } from "@/components/ui/button";
 
 const ReGenerateButton = () => {
   return (
-    <Button onClick={() => window.location.reload()}>Generate New Song</Button>
+    <Button className="rounded-xl" onClick={() => window.location.reload()}>
+      Generate New Song
+    </Button>
   );
 };
 

@@ -14,12 +14,6 @@ type ParamsTopItem = {
   limit?: number;
 };
 
-type PlaylistBody = {
-  name: string;
-  description?: string;
-  public?: boolean;
-};
-
 const scopes = [
   "user-read-email",
   "user-top-read",
