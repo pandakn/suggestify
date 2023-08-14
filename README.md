@@ -1,4 +1,4 @@
-# Favtify
+# Suggestify
 
 Recommends 12 awesome Spotify tracks that come from your taste – and lets you add them to your playlist hassle-free!
 
