@@ -20,6 +20,7 @@ import { PlayIcon, Pause } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import PlaylistsDialog from "./PlaylistsDialog";
 import SpotifyLogo from "@/public/spotify-icon.svg";
+import Link from "next/link";
 
 type CardTrackProps = {
   name: string;
@@ -104,14 +105,18 @@ const CardTrack = ({
         </div>
       </CardContent>
       <CardFooter>
-        <div className="absolute flex bottom-4 gap-x-2">
+        <Link
+          href="https://open.spotify.com/"
+          target="_blank"
+          className="absolute flex bottom-4 gap-x-2"
+        >
           <Image
             src={SpotifyLogo}
             alt="spotify-logo"
             className="bottom-0 w-6 h-6 text-white "
           />
           <h3 className="">Spotify</h3>
-        </div>
+        </Link>
       </CardFooter>
 
       {/* song */}
